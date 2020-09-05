@@ -1,0 +1,15 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+
+common/.openapi-generator/
+*.generated.swift
+.idea/misc.xml
+
+.fastlane/report.xml
