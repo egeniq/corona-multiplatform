@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    android:paddingTop="5dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="5dp">
+
+    <TextView
+        android:id="@+id/country"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="30"
+        android:ellipsize="end"
+        android:lines="1"
+        android:paddingRight="3dp"
+        android:text="country"
+        android:textSize="@dimen/text_size" />
+
+    <TextView
+        android:id="@+id/totalCases"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="11"
+        android:gravity="right"
+        android:text="total"
+        android:textSize="@dimen/text_size" />
+
+    <TextView
+        android:id="@+id/newCases"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="11"
+        android:gravity="right"
+        android:text="new"
+        android:textColor="#FFD500"
+        android:textSize="@dimen/text_size" />
+
+    <TextView
+        android:id="@+id/totalDeaths"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="9"
+        android:gravity="right"
+        android:text="total"
+        android:textSize="@dimen/text_size" />
+
+    <TextView
+        android:id="@+id/newDeaths"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="9"
+        android:gravity="right"
+        android:text="new"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="@dimen/text_size" />
+
+</LinearLayout>

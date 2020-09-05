@@ -15,7 +15,9 @@ repositories {
     mavenCentral()
 }
 
-val ktor_version = "1.0.0"
+val ktor_version = "1.4.0"
+val coroutines_version = "1.3.9-native-mt"
+
 kotlin {
     android()
     ios {
@@ -29,6 +31,9 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-core:$ktor_version")
+                implementation("io.ktor:ktor-client-json:$ktor_version")
+                implementation("io.ktor:ktor-client-serialization:$ktor_version")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
             }
         }
         val commonTest by getting {
@@ -39,9 +44,9 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("com.google.android.material:material:1.2.0")
+                implementation("com.google.android.material:material:1.2.1")
                 implementation("io.ktor:ktor-client-android:$ktor_version")
-
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
             }
         }
         val androidTest by getting {
