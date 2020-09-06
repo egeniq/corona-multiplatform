@@ -1,25 +1,29 @@
 package com.multiplatform.sample.shared
 
+import com.multiplatform.sample.shared.entity.Day
 import io.ktor.client.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.features.json.*
+import io.ktor.client.features.json.serializer.*
+import io.ktor.client.features.logging.*
 import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import io.ktor.http.*
 
 /**
  * Created by Dima Kovalenko.
  */
 class HopkinsAPI(private val baseUrl: String) {
 
-    private val client = HttpClient {
-        expectSuccess = false
-    }
-
-    suspend fun getData(): HttpResponse? {
-        val response = client.request<HttpResponse> {
-            url(baseUrl + "timeseries.json")
-            method = HttpMethod.Get
+    private val client = HttpClient(CIO) {
+//        install(JsonFeature) {
+//            serializer = KotlinxSerializer(kotlinx.serialization.json.Json { })
+//        }
+        install(Logging) {
+            logger = Logger.DEFAULT
+            level = LogLevel.HEADERS
         }
-        return null
     }
 
+    suspend fun getData(): String {
+        return client.get<String>(baseUrl + "timeseries.json")
+    }
 }

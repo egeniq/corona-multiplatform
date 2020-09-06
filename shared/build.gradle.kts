@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     kotlin("multiplatform")
+//    kotlin("plugin.serialization") version "1.4.0"
     id("com.android.library")
     id("kotlin-android-extensions")
 }
@@ -16,6 +17,7 @@ repositories {
 }
 
 val ktor_version = "1.4.0"
+val serialization_version = "1.0.0-RC"
 val coroutines_version = "1.3.9-native-mt"
 
 kotlin {
@@ -32,7 +34,10 @@ kotlin {
             dependencies {
                 implementation("io.ktor:ktor-client-core:$ktor_version")
                 implementation("io.ktor:ktor-client-json:$ktor_version")
+                implementation("io.ktor:ktor-client-cio:$ktor_version")
+                implementation("io.ktor:ktor-client-logging:$ktor_version")
                 implementation("io.ktor:ktor-client-serialization:$ktor_version")
+//                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serialization_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
             }
         }
@@ -46,6 +51,7 @@ kotlin {
             dependencies {
                 implementation("com.google.android.material:material:1.2.1")
                 implementation("io.ktor:ktor-client-android:$ktor_version")
+//                implementation("io.ktor:ktor-client-logging-jvm:$ktor_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
             }
         }
@@ -58,6 +64,7 @@ kotlin {
         val iosMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-ios:$ktor_version")
+//                implementation("io.ktor:ktor-client-logging-native:$ktor_version")
             }
         }
         val iosTest by getting
