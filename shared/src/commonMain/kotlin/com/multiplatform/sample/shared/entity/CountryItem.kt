@@ -3,7 +3,7 @@ package com.multiplatform.sample.shared.entity
 /**
  * Created by Dima Kovalenko.
  */
-data class Row(
+data class CountryItem(
     val country: String? = null,
     val totalCases: Int? = null,
     val totalDeaths: Int? = null,

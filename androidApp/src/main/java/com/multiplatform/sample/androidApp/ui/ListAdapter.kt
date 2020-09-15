@@ -7,15 +7,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.multiplatform.sample.androidApp.R
 import com.multiplatform.sample.androidApp.Utils
-import com.multiplatform.sample.shared.entity.Row
+import com.multiplatform.sample.shared.entity.CountryItem
 import com.neovisionaries.i18n.CountryCode
 import java.util.*
 
+class ListAdapter(private val userCountry: String?) : RecyclerView.Adapter<ListAdapter.RowViewHolder>() {
 
-class ListAdapter(
-    private val rows: MutableList<Row>,
-    private val userCountry: String?
-) : RecyclerView.Adapter<ListAdapter.RowViewHolder>() {
+    var countryItems: List<CountryItem>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -23,11 +21,12 @@ class ListAdapter(
     }
 
     override fun onBindViewHolder(holder: RowViewHolder, position: Int) {
-        val movie: Row = rows[position]
-        holder.bind(movie, userCountry)
+        countryItems?.get(position)?.let {
+            holder.bind(it, userCountry)
+        }
     }
 
-    override fun getItemCount(): Int = rows.size
+    override fun getItemCount(): Int = countryItems?.size ?: 0
 
     class RowViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
         RecyclerView.ViewHolder(inflater.inflate(R.layout.list_item, parent, false)) {
@@ -47,11 +46,11 @@ class ListAdapter(
         }
 
         fun bind(
-            row: Row,
+            countryItem: CountryItem,
             userCountry: String?
         ) {
 
-            var countryText = row.country
+            var countryText = countryItem.country
             countryText?.let {
                 try {
                     val code = CountryCode.findByName(countryText)[0].name
@@ -62,12 +61,12 @@ class ListAdapter(
             }
             mCountryView?.text = countryText
 
-            mTotalCasesView?.text = row.totalCases.toString()
-            mTotalDeathsView?.text = row.totalDeaths.toString()
-            mNewCasesView?.text = row.newCases.toString()
-            mNewDeathsView?.text = row.newDeaths.toString()
+            mTotalCasesView?.text = countryItem.totalCases.toString()
+            mTotalDeathsView?.text = countryItem.totalDeaths.toString()
+            mNewCasesView?.text = countryItem.newCases.toString()
+            mNewDeathsView?.text = countryItem.newDeaths.toString()
 
-            val isMyCountry = userCountry?.equals(row.country) ?: false
+            val isMyCountry = userCountry?.equals(countryItem.country) ?: false
             itemView.setBackgroundColor(if (isMyCountry) itemView.resources.getColor(R.color.dark) else Color.TRANSPARENT)
         }
     }
