@@ -1,7 +1,9 @@
 package com.multiplatform.sample.shared.entity
 
-//import kotlinx.serialization.Serializable
+import kotlinx.serialization.Serializable
 
+
+@Serializable
 data class Day(
     val date: String? = null,
     val recovered: Int? = null,

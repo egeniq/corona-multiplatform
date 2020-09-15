@@ -3,6 +3,7 @@ package com.multiplatform.sample.androidApp
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,9 +13,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel.pageData.observe(this, {
+        viewModel.pageData.observe(this, Observer {
 
         })
-
     }
 }

@@ -40,4 +40,7 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+    packagingOptions {
+        exclude("META-INF/*.kotlin_module")
+    }
 }

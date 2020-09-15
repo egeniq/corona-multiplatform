@@ -1,11 +1,11 @@
 package com.multiplatform.sample.androidApp
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.multiplatform.sample.shared.Services
+import com.multiplatform.sample.shared.entity.Day
 import com.multiplatform.sample.shared.entity.Row
 import kotlinx.coroutines.launch
 
@@ -21,9 +21,7 @@ class MainViewModel : ViewModel() {
     init {
         viewModelScope.launch {
             try {
-//                unwrapHomePageBody(
-                val data = Services.helloAPI.getData()
-//                )
+                unwrapHomePageBody(Services.helloAPI.getData())
             } catch (e: Exception) {
             }
         }
@@ -64,11 +62,11 @@ class MainViewModel : ViewModel() {
 //        recyclerView.adapter = listAdapter
 //    }
 
-//    private suspend fun unwrapHomePageBody(response: HttpResponse) {
-//        try {
-////            _pageData.value = response.body()
-//        } catch (e: Exception) {
-//        }
-//    }
+    private suspend fun unwrapHomePageBody(data: Map<String, List<Day>>) {
+        try {
+//            _pageData.value = response.body()
+        } catch (e: Exception) {
+        }
+    }
 
 }
