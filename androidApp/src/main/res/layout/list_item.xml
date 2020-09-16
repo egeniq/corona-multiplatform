@@ -16,7 +16,7 @@
         android:ellipsize="end"
         android:lines="1"
         android:paddingRight="3dp"
-        android:text="country"
+        android:text="      Country"
         android:textSize="@dimen/text_size" />
 
     <TextView

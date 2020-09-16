@@ -23,7 +23,8 @@ class MainViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val data = Services.helloAPI.getData()
-                _pageData.postValue(transform(data))
+                val transformed = transform(data)
+                _pageData.postValue(transformed)
             } catch (e: Exception) {
             }
         }

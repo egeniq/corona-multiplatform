@@ -5,17 +5,19 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import com.multiplatform.sample.androidApp.databinding.ActivityMainBinding
 import com.multiplatform.sample.androidApp.ui.ListAdapter
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding>() {
 
+    override val layout = R.layout.activity_main
     private val viewModel by viewModels<MainViewModel>()
     private var listAdapter: ListAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         viewModel.pageData.observe(this, Observer {
             listAdapter?.countryItems = it
             listAdapter?.notifyDataSetChanged()
@@ -25,6 +27,6 @@ class MainActivity : AppCompatActivity() {
         val userCountry = Utils.getCountryNameByISO(userCountryISO)
         val userCountryMapped = Utils.mapCountryName(userCountry)
         listAdapter = ListAdapter(userCountryMapped)
-        findViewById<RecyclerView>(R.id.recyclerView).adapter = listAdapter
+        binding.recyclerView.adapter = listAdapter
     }
 }

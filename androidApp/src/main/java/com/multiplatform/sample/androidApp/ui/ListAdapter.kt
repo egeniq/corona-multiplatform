@@ -11,7 +11,8 @@ import com.multiplatform.sample.shared.entity.CountryItem
 import com.neovisionaries.i18n.CountryCode
 import java.util.*
 
-class ListAdapter(private val userCountry: String?) : RecyclerView.Adapter<ListAdapter.RowViewHolder>() {
+class ListAdapter(private val userCountry: String?) :
+    RecyclerView.Adapter<ListAdapter.RowViewHolder>() {
 
     var countryItems: List<CountryItem>? = null
 
@@ -50,24 +51,45 @@ class ListAdapter(private val userCountry: String?) : RecyclerView.Adapter<ListA
             userCountry: String?
         ) {
 
-            var countryText = countryItem.country
-            countryText?.let {
+            var country = countryItem.country
+            country?.let {
                 try {
-                    val code = CountryCode.findByName(countryText)[0].name
+                    val code = CountryCode.findByName(mapToCountryCode(country))[0].name
                     val loc = Locale("", code)
-                    countryText = Utils.localeToEmoji(loc) + " "+  countryText
+                    country = Utils.localeToEmoji(loc) + "  " + country
                 } catch (e: Exception) {
                 }
             }
-            mCountryView?.text = countryText
+            mCountryView?.text = country
 
-            mTotalCasesView?.text = countryItem.totalCases.toString()
-            mTotalDeathsView?.text = countryItem.totalDeaths.toString()
-            mNewCasesView?.text = countryItem.newCases.toString()
-            mNewDeathsView?.text = countryItem.newDeaths.toString()
+            mTotalCasesView?.text = countryItem.totalCases.toKs()
+            mTotalDeathsView?.text = countryItem.totalDeaths.toKs()
+            mNewCasesView?.text = countryItem.newCases.toKs()
+            mNewDeathsView?.text = countryItem.newDeaths.toKs()
 
             val isMyCountry = userCountry?.equals(countryItem.country) ?: false
             itemView.setBackgroundColor(if (isMyCountry) itemView.resources.getColor(R.color.dark) else Color.TRANSPARENT)
         }
+
+        private fun mapToCountryCode(country: String?): String? {
+            return when (country) {
+                "US" -> "United States"
+                "Iran" -> "Iran, Islamic Republic of"
+                "Russia" -> "Russian Federation"
+                "Bolivia" -> "Bolivia, Plurinational State of"
+                "Czechia" -> "Czech Republic"
+                "Moldova" -> "Moldova, Republic of"
+                "Korea, South" -> "Korea, Republic of"
+                else -> country
+            }
+        }
+    }
+}
+
+fun Int?.toKs(): String {
+    return when (this) {
+        null -> "no data"
+        in 10000..Int.MAX_VALUE -> "${this / 1000}k"
+        else -> this.toString()
     }
 }
