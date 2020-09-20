@@ -1,13 +1,10 @@
-package com.multiplatform.sample.androidApp
+package com.multiplatform.sample.shared
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.multiplatform.sample.shared.DataTransformer
-import com.multiplatform.sample.shared.Services
 import com.multiplatform.sample.shared.entity.CountryItem
 import com.multiplatform.sample.shared.sorting.TotalDeathsComparator
+import dev.icerock.moko.mvvm.livedata.LiveData
+import dev.icerock.moko.mvvm.livedata.MutableLiveData
+import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.launch
 
 /**
@@ -15,7 +12,7 @@ import kotlinx.coroutines.launch
  */
 class MainViewModel : ViewModel() {
 
-    private val _pageData = MutableLiveData<List<CountryItem>>()
+    private val _pageData = MutableLiveData<List<CountryItem>>(emptyList())
     val pageData: LiveData<List<CountryItem>>
         get() = _pageData
 

@@ -14,6 +14,7 @@ repositories {
     google()
     jcenter()
     mavenCentral()
+    maven ("https://dl.bintray.com/icerockdev/moko")
 }
 
 val ktor_version = "1.3.2"
@@ -50,6 +51,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-serialization:$ktor_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutines_version")
+                api("dev.icerock.moko:mvvm:0.7.1")
             }
         }
         val commonTest by getting {
@@ -67,6 +69,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-serialization-jvm:$ktor_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
+                implementation("androidx.lifecycle:lifecycle-extensions:2.1.0")
             }
         }
         val androidTest by getting {

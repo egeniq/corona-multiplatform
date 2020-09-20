@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("kotlin-android-extensions")
+    kotlin("kapt")
 }
 group = "com.multiplatform.sample"
 version = "1.0-SNAPSHOT"
@@ -11,6 +12,7 @@ repositories {
     google()
     jcenter()
     mavenCentral()
+    maven ("https://dl.bintray.com/icerockdev/moko")
 }
 dependencies {
     implementation(project(":shared"))
@@ -46,4 +48,8 @@ android {
     packagingOptions {
         exclude("META-INF/*.kotlin_module")
     }
+}
+
+kapt {
+    generateStubs = true
 }

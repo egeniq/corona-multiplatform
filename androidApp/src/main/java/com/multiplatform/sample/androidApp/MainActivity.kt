@@ -1,27 +1,30 @@
 package com.multiplatform.sample.androidApp
 
 import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.ViewModelProvider
 import com.multiplatform.sample.androidApp.databinding.ActivityMainBinding
 import com.multiplatform.sample.androidApp.ui.ListAdapter
+import com.multiplatform.sample.shared.MainViewModel
+import dev.icerock.moko.mvvm.createViewModelFactory
 
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
-    override val layout = R.layout.activity_main
-    private val viewModel by viewModels<MainViewModel>()
+    override val layoutId = R.layout.activity_main
+    override val viewModelClass: Class<MainViewModel> = MainViewModel::class.java
+    override val viewModelVariableId: Int = BR._all
+    override fun viewModelFactory(): ViewModelProvider.Factory {
+        return createViewModelFactory { MainViewModel() }
+    }
+
     private var listAdapter: ListAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        viewModel.pageData.observe(this, Observer {
+        viewModel.pageData.addObserver {
             listAdapter?.countryItems = it
             listAdapter?.notifyDataSetChanged()
-        })
+        }
 
         val userCountryISO = Utils.getUserCountry(this)
         val userCountry = Utils.getCountryNameByISO(userCountryISO)
@@ -29,4 +32,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         listAdapter = ListAdapter(userCountryMapped)
         binding.recyclerView.adapter = listAdapter
     }
+
+
 }
