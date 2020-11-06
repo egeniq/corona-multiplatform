@@ -22,7 +22,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         super.onCreate(savedInstanceState)
         binding.lifecycleOwner = this
         viewModel.pageData.addObserver {
-            listAdapter?.countryItems = it
+            listAdapter?.countryItems = it?.items
             listAdapter?.notifyDataSetChanged()
         }
 
