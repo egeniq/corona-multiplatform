@@ -51,6 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"
+            tools:listitem="@layout/list_item"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <View
