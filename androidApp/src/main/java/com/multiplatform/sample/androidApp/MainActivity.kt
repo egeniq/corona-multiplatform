@@ -2,18 +2,22 @@ package com.multiplatform.sample.androidApp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.multiplatform.sample.androidApp.databinding.ActivityMainBinding
 import com.multiplatform.sample.androidApp.ui.ListAdapter
 import com.multiplatform.sample.shared.MainViewModel
-import dev.icerock.moko.mvvm.createViewModelFactory
+import com.multiplatform.sample.shared.Response
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var viewModel: MainViewModel
 
     private var listAdapter: ListAdapter? = null
+
+    private val observer: (Response?) -> Unit = {
+        listAdapter?.countryItems = it?.items
+        listAdapter?.notifyDataSetChanged()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,10 +34,12 @@ class MainActivity : AppCompatActivity() {
         listAdapter = ListAdapter(userCountryMapped)
         binding.recyclerView.adapter = listAdapter
 
-        viewModel.pageData.addObserver {
-            listAdapter?.countryItems = it?.items
-            listAdapter?.notifyDataSetChanged()
-        }
+        viewModel.pageData.addObserver(observer)
+    }
+
+    override fun onDestroy() {
+        viewModel.pageData.removeObserver(observer)
+        super.onDestroy()
     }
 
 
