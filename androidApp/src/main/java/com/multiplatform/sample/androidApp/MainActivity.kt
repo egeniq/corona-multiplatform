@@ -33,14 +33,17 @@ class MainActivity : AppCompatActivity() {
         val userCountryMapped = Utils.mapCountryName(userCountry)
         listAdapter = ListAdapter(userCountryMapped)
         binding.recyclerView.adapter = listAdapter
+    }
 
+    override fun onResume() {
+        super.onResume()
         viewModel.pageData.addObserver(observer)
+        viewModel.fetchData()
     }
 
-    override fun onDestroy() {
+    override fun onPause() {
         viewModel.pageData.removeObserver(observer)
-        super.onDestroy()
+        super.onPause()
     }
-
 
 }

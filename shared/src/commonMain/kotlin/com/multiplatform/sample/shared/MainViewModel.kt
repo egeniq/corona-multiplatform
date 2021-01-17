@@ -15,7 +15,7 @@ class MainViewModel : ViewModel() {
     val pageData: LiveData<Response?>
         get() = _pageData
 
-    init {
+    fun fetchData() {
         viewModelScope.launch {
             try {
                 val data = Services.helloAPI.getData()
@@ -26,6 +26,5 @@ class MainViewModel : ViewModel() {
             }
         }
     }
-
 
 }
