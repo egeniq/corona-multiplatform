@@ -25,7 +25,7 @@ class ContentViewController: UIViewController {
                 print("Received nil")
             }
         }
-        
+        mainViewModel.fetchData()
     }
 
 

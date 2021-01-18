@@ -16,15 +16,21 @@ class MainViewModel : ViewModel() {
         get() = _pageData
 
     fun fetchData() {
+//        Log.debug(TAG + "fetchData()")
         viewModelScope.launch {
             try {
                 val data = Services.helloAPI.getData()
                 val transformed = DataTransformer.transform(data)
                 transformed.sortWith(TotalDeathsComparator())
                 _pageData.postValue(Response(transformed))
+//                Log.debug(TAG + "Downloaded data successfully")
             } catch (e: Exception) {
+//                Log.assert(TAG + "Error while loading data", e)
             }
         }
     }
 
+    companion object {
+        const val TAG = "MainViewModel"
+    }
 }

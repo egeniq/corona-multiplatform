@@ -86,7 +86,6 @@ kotlin {
                 implementation("io.ktor:ktor-client-serialization-native:$ktor_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serialization_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.5-native-nt")
-
             }
         }
         val iosTest by getting
