@@ -1,5 +1,6 @@
 package com.multiplatform.sample.shared
 
+import co.touchlab.kermit.Kermit
 import com.multiplatform.sample.shared.sorting.TotalDeathsComparator
 import dev.icerock.moko.mvvm.livedata.LiveData
 import dev.icerock.moko.mvvm.livedata.MutableLiveData
@@ -15,22 +16,30 @@ class MainViewModel : ViewModel() {
     val pageData: LiveData<Response?>
         get() = _pageData
 
+    private var kermit: Kermit? = null
+
+    fun setup(kermit: Kermit) {
+        this.kermit = kermit
+    }
+
     fun fetchData() {
-//        Log.debug(TAG + "fetchData()")
+        kermit?.d(TAG) { "fetchData()" }
         viewModelScope.launch {
             try {
-                val data = Services.helloAPI.getData()
+                val helloAPI = HopkinsAPI(BASE_URL)
+                val data = helloAPI.getData()
                 val transformed = DataTransformer.transform(data)
                 transformed.sortWith(TotalDeathsComparator())
                 _pageData.postValue(Response(transformed))
-//                Log.debug(TAG + "Downloaded data successfully")
+                kermit?.d(TAG) { "Downloaded data successfully" }
             } catch (e: Exception) {
-//                Log.assert(TAG + "Error while loading data", e)
+                kermit?.e(TAG, e) { "Error while loading data" }
             }
         }
     }
 
     companion object {
         const val TAG = "MainViewModel"
+        const val BASE_URL = "https://pomber.github.io/covid19/"
     }
 }

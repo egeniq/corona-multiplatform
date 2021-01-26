@@ -12,12 +12,13 @@ import shared
 class ContentViewController: UIViewController {
 
     let mainViewModel = MainViewModel()
-    
+    let kermit = Kermit(loggerList: [NSLogLogger()], defaultTag: "iOSTag")
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        mainViewModel.setup(kermit: kermit)
         mainViewModel.pageData.addObserver { data in
             if let data = data {
                 print(data)
