@@ -15,6 +15,7 @@ repositories {
     jcenter()
     mavenCentral()
     maven ("https://dl.bintray.com/icerockdev/moko")
+    maven ("https://dl.bintray.com/fitpuli/fitpuli.dev")
 }
 
 val ktor_version = "1.3.2"
@@ -39,6 +40,8 @@ kotlin {
         binaries {
             framework {
                 baseName = "shared"
+                export("co.touchlab:kermit:0.1.7")
+                transitiveExport = true
             }
         }
     }
@@ -52,6 +55,8 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutines_version")
                 api("dev.icerock.moko:mvvm:0.7.1")
+                implementation(kotlin("stdlib-common"))
+                api("co.touchlab:kermit:0.1.7")
             }
         }
         val commonTest by getting {
@@ -70,6 +75,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
                 implementation("androidx.lifecycle:lifecycle-extensions:2.1.0")
+                implementation(kotlin("stdlib"))
             }
         }
         val androidTest by getting {
@@ -86,7 +92,6 @@ kotlin {
                 implementation("io.ktor:ktor-client-serialization-native:$ktor_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serialization_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.5-native-nt")
-
             }
         }
         val iosTest by getting

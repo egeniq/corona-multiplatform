@@ -16,7 +16,7 @@ class HopkinsAPI(private val baseUrl: String) {
         }
         install(Logging) {
             logger = Logger.DEFAULT
-            level = LogLevel.HEADERS
+            level = LogLevel.BODY
         }
     }
 
