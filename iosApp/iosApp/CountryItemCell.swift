@@ -20,10 +20,19 @@ class CountryItemCell: UITableViewCell {
     
     func setItem(item: CountryItem) {
         countryNameLabel.text = item.country
+   
         totalCasesLabel.text =  toK(number: item.totalCases)
-        newCasesLabel.text = item.newCases?.stringValue
+        totalCasesLabel.textAlignment = NSTextAlignment.right
+     
+        newCasesLabel.text = toK(number: item.newCases)
+        newCasesLabel.textAlignment = NSTextAlignment.right
+
         totalDeathsLabel.text = toK(number: item.totalDeaths)
+        totalDeathsLabel.textAlignment = NSTextAlignment.right
+
         newDeathsLabel.text = item.newDeaths?.stringValue
+        newDeathsLabel.textAlignment = NSTextAlignment.right
+
     }
     
     func toK(number: KotlinInt?) -> String {
