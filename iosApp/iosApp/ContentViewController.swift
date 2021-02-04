@@ -48,7 +48,7 @@ class ContentViewController: UIViewController {
 extension ContentViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("you tapped me")
+
     }
     
 }
@@ -61,7 +61,7 @@ extension ContentViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell  = tableView.dequeueReusableCell(withIdentifier: "CountryItemCell") as! CountryItemCell
-        cell.countryNameLabel.text = items[indexPath.row].country
+        cell.setItem(item: items[indexPath.row])
         return cell
     }
 }
