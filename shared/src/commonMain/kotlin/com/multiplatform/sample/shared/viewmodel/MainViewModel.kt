@@ -1,16 +1,24 @@
-package com.multiplatform.sample.shared
+package com.multiplatform.sample.shared.viewmodel
 
 import co.touchlab.kermit.Kermit
+import com.multiplatform.sample.shared.domain.DataTransformer
+import com.multiplatform.sample.shared.datasource.HopkinsAPI
+import com.multiplatform.sample.shared.di.KodeinInjector
+import com.multiplatform.sample.shared.domain.Response
+import com.multiplatform.sample.shared.repo.CoronaRepository
 import com.multiplatform.sample.shared.sorting.TotalDeathsComparator
 import dev.icerock.moko.mvvm.livedata.LiveData
 import dev.icerock.moko.mvvm.livedata.MutableLiveData
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.launch
+import org.kodein.di.erased.instance
 
 /**
  * Created by Dima Kovalenko.
  */
 class MainViewModel : ViewModel() {
+
+    private val repository by KodeinInjector.instance<CoronaRepository>()
 
     private val _pageData = MutableLiveData<Response?>(null)
     val pageData: LiveData<Response?>
@@ -26,8 +34,7 @@ class MainViewModel : ViewModel() {
         kermit?.d(TAG) { "fetchData()" }
         viewModelScope.launch {
             try {
-                val helloAPI = HopkinsAPI(BASE_URL)
-                val data = helloAPI.getData()
+                val data = repository.getData()
                 val transformed = DataTransformer.transform(data)
                 transformed.sortWith(TotalDeathsComparator())
                 _pageData.postValue(Response(transformed))
@@ -40,6 +47,5 @@ class MainViewModel : ViewModel() {
 
     companion object {
         const val TAG = "MainViewModel"
-        const val BASE_URL = "https://pomber.github.io/covid19/"
     }
 }

@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.multiplatform.sample.androidApp.R
 import com.multiplatform.sample.androidApp.Utils
-import com.multiplatform.sample.shared.entity.CountryItem
+import com.multiplatform.sample.shared.domain.model.CountryItem
 import com.neovisionaries.i18n.CountryCode
 import java.util.*
 

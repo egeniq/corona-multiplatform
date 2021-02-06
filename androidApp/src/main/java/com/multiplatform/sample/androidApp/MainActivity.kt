@@ -8,8 +8,8 @@ import co.touchlab.kermit.Kermit
 import co.touchlab.kermit.LogcatLogger
 import com.multiplatform.sample.androidApp.databinding.ActivityMainBinding
 import com.multiplatform.sample.androidApp.ui.ListAdapter
-import com.multiplatform.sample.shared.MainViewModel
-import com.multiplatform.sample.shared.Response
+import com.multiplatform.sample.shared.viewmodel.MainViewModel
+import com.multiplatform.sample.shared.domain.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private var listAdapter: ListAdapter? = null
 
-    private val observer: (Response?) -> Unit = {
+    private val pageObserver: (Response?) -> Unit = {
         listAdapter?.countryItems = it?.items
         listAdapter?.notifyDataSetChanged()
     }
@@ -43,12 +43,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.pageData.addObserver(observer)
+        viewModel.pageData.addObserver(pageObserver)
         viewModel.fetchData()
     }
 
     override fun onPause() {
-        viewModel.pageData.removeObserver(observer)
+        viewModel.pageData.removeObserver(pageObserver)
         super.onPause()
     }
 

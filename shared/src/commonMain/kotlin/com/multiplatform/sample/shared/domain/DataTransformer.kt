@@ -1,7 +1,7 @@
-package com.multiplatform.sample.shared
+package com.multiplatform.sample.shared.domain
 
-import com.multiplatform.sample.shared.entity.CountryItem
-import com.multiplatform.sample.shared.entity.Day
+import com.multiplatform.sample.shared.domain.model.CountryItem
+import com.multiplatform.sample.shared.domain.model.Day
 
 /**
  * Created by Dima Kovalenko.

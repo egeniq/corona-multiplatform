@@ -1,6 +1,6 @@
 package com.multiplatform.sample.shared.sorting
 
-import com.multiplatform.sample.shared.entity.CountryItem
+import com.multiplatform.sample.shared.domain.model.CountryItem
 
 
 /**

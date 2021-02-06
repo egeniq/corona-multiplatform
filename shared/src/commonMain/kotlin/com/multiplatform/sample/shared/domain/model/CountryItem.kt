@@ -1,4 +1,4 @@
-package com.multiplatform.sample.shared.entity
+package com.multiplatform.sample.shared.domain.model
 
 /**
  * Created by Dima Kovalenko.

@@ -1,6 +1,6 @@
-package com.multiplatform.sample.shared
+package com.multiplatform.sample.shared.datasource
 
-import com.multiplatform.sample.shared.entity.Day
+import com.multiplatform.sample.shared.domain.model.Day
 import io.ktor.client.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.logging.*
