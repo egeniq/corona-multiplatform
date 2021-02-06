@@ -28,16 +28,23 @@ class ContentViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         mainViewModel.setup(kermit: kermit)
-        mainViewModel.pageData.addObserver { data in
+        
+        mainViewModel.pageResultLD.addObserver { data in
             if let data = data {
                 print(data)
-                if let response = data as? Response, let items = response.items as? [CountryItem] {
-                    self.items = items
-                    self.tableView.reloadData()
+                if let result = data as? Result {
+                    result.resolve { (payload: Any?) in
+                        if let items = payload as? [CountryItem] {
+                            self.items = items
+                            self.tableView.reloadData()
+                        }
+                    } onError: { (ex: KotlinThrowable) in
+                        // handle error
+                    }
+
                 }
-                
             } else {
-                print("Received nil")
+                
             }
         }
         mainViewModel.fetchData()

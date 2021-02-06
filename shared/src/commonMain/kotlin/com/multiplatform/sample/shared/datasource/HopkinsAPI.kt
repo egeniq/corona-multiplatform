@@ -20,7 +20,7 @@ class HopkinsAPI(private val baseUrl: String) {
         }
     }
 
-    suspend fun getData(): Map<String, List<Day>> {
+    suspend fun getCountryDaysMap(): Map<String, List<Day>> {
         return client.get(baseUrl + "timeseries.json")
     }
 }

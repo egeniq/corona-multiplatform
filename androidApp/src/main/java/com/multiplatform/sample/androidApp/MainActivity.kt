@@ -1,6 +1,7 @@
 package com.multiplatform.sample.androidApp
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import co.touchlab.kermit.CommonLogger
@@ -9,26 +10,34 @@ import co.touchlab.kermit.LogcatLogger
 import com.multiplatform.sample.androidApp.databinding.ActivityMainBinding
 import com.multiplatform.sample.androidApp.ui.ListAdapter
 import com.multiplatform.sample.shared.viewmodel.MainViewModel
-import com.multiplatform.sample.shared.domain.Response
+import com.multiplatform.sample.shared.domain.model.CountryRow
+import com.multiplatform.sample.shared.utils.Result
+import com.multiplatform.sample.shared.utils.resolve
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var viewModel: MainViewModel
 
     private var listAdapter: ListAdapter? = null
+    private var binding: ActivityMainBinding? = null
 
-    private val pageObserver: (Response?) -> Unit = {
-        listAdapter?.countryItems = it?.items
-        listAdapter?.notifyDataSetChanged()
+    private val pageObserver: (Result<List<CountryRow>>) -> Unit = { result ->
+        result.resolve ({
+            listAdapter?.countryItems = it
+            listAdapter?.notifyDataSetChanged()
+        }, {
+            // handle error
+        })
+        binding?.progressBar?.visibility = if (result.inProgress()) View.VISIBLE else View.GONE
     }
 
     private val kermit = Kermit(LogcatLogger(), CommonLogger())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        binding.lifecycleOwner = this
-        val view = binding.root
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding?.lifecycleOwner = this
+        val view = binding?.root
         setContentView(view)
 
         viewModel = ViewModelProvider(this ).get(MainViewModel::class.java)
@@ -38,17 +47,18 @@ class MainActivity : AppCompatActivity() {
         val userCountry = Utils.getCountryNameByISO(userCountryISO)
         val userCountryMapped = Utils.mapCountryName(userCountry)
         listAdapter = ListAdapter(userCountryMapped)
-        binding.recyclerView.adapter = listAdapter
+        binding?.recyclerView?.adapter = listAdapter
+
+        viewModel.fetchData()
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.pageData.addObserver(pageObserver)
-        viewModel.fetchData()
+        viewModel.pageResultLD.addObserver(pageObserver)
     }
 
     override fun onPause() {
-        viewModel.pageData.removeObserver(pageObserver)
+        viewModel.pageResultLD.removeObserver(pageObserver)
         super.onPause()
     }
 

@@ -1,15 +1,15 @@
 package com.multiplatform.sample.shared.domain
 
-import com.multiplatform.sample.shared.domain.model.CountryItem
+import com.multiplatform.sample.shared.domain.model.CountryRow
 import com.multiplatform.sample.shared.domain.model.Day
 
 /**
  * Created by Dima Kovalenko.
  */
-object DataTransformer {
+object CountryListDataMapper {
 
-    fun transform(entries: Map<String, List<Day>>?): MutableList<CountryItem> {
-        val rows = mutableListOf<CountryItem>()
+    fun map(entries: Map<String, List<Day>>?): MutableList<CountryRow> {
+        val rows = mutableListOf<CountryRow>()
         entries?.keys?.forEach { country ->
             val days = entries[country]
             days?.let {
@@ -25,7 +25,7 @@ object DataTransformer {
 
                     if (newCases > 0) {
                         rows.add(
-                            CountryItem(
+                            CountryRow(
                                 country,
                                 yesterday.confirmed,
                                 yesterday.deaths,
