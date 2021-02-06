@@ -16,7 +16,7 @@ class ContentViewController: UIViewController {
     let mainViewModel = MainViewModel()
     let kermit = Kermit(loggerList: [NSLogLogger()], defaultTag: "iOSTag")
 
-    var items: [CountryItem] = []
+    var items: [CountryRow] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +34,7 @@ class ContentViewController: UIViewController {
                 print(data)
                 if let result = data as? Result {
                     result.resolve { (payload: Any?) in
-                        if let items = payload as? [CountryItem] {
+                        if let items = payload as? [CountryRow] {
                             self.items = items
                             self.tableView.reloadData()
                         }

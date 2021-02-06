@@ -18,7 +18,7 @@ class CountryItemCell: UITableViewCell {
     @IBOutlet weak var totalDeathsLabel: UILabel!
     @IBOutlet weak var newDeathsLabel: UILabel!
     
-    func setItem(item: CountryItem) {
+    func setItem(item: CountryRow) {
         countryNameLabel.text = item.country
    
         totalCasesLabel.text =  toK(number: item.totalCases)
