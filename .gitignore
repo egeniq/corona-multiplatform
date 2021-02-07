@@ -13,3 +13,5 @@ common/.openapi-generator/
 .idea/misc.xml
 
 .fastlane/report.xml
+
+UserInterfaceState.xcuserstate
