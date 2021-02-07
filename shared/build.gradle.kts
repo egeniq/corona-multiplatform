@@ -20,7 +20,6 @@ repositories {
 
 val ktor_version = "1.3.2"
 val coroutines_version = "1.3.7"
-val kodein_version = "6.5.3"
 
 kotlin {
 
@@ -29,8 +28,6 @@ kotlin {
         binaries {
             framework {
                 baseName = "shared"
-                export("co.touchlab:kermit:0.1.7")
-                transitiveExport = true
             }
         }
     }
@@ -44,9 +41,6 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutines_version")
                 api("dev.icerock.moko:mvvm:0.7.1")
                 implementation(kotlin("stdlib-common"))
-                api("co.touchlab:kermit:0.1.7")
-                implementation("org.kodein.di:kodein-di-core:$kodein_version")
-                implementation("org.kodein.di:kodein-di-erased:$kodein_version")
             }
         }
         val commonTest by getting {

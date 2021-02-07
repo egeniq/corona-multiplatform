@@ -4,9 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import co.touchlab.kermit.CommonLogger
-import co.touchlab.kermit.Kermit
-import co.touchlab.kermit.LogcatLogger
 import com.multiplatform.sample.androidApp.databinding.ActivityMainBinding
 import com.multiplatform.sample.androidApp.ui.ListAdapter
 import com.multiplatform.sample.shared.viewmodel.MainViewModel
@@ -31,8 +28,6 @@ class MainActivity : AppCompatActivity() {
         binding?.progressBar?.visibility = if (result.inProgress()) View.VISIBLE else View.GONE
     }
 
-    private val kermit = Kermit(LogcatLogger(), CommonLogger())
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -41,7 +36,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         viewModel = ViewModelProvider(this ).get(MainViewModel::class.java)
-        viewModel.setup(kermit)
 
         val userCountryISO = Utils.getUserCountry(this)
         val userCountry = Utils.getCountryNameByISO(userCountryISO)
