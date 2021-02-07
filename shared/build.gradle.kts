@@ -19,7 +19,6 @@ repositories {
 }
 
 val ktor_version = "1.3.2"
-val serialization_version = "0.14.0"
 val coroutines_version = "1.3.7"
 val kodein_version = "6.5.3"
 
@@ -42,7 +41,6 @@ kotlin {
                 implementation("io.ktor:ktor-client-json:$ktor_version")
                 implementation("io.ktor:ktor-client-logging:$ktor_version")
                 implementation("io.ktor:ktor-client-serialization:$ktor_version")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutines_version")
                 api("dev.icerock.moko:mvvm:0.7.1")
                 implementation(kotlin("stdlib-common"))
@@ -64,7 +62,6 @@ kotlin {
                 implementation("io.ktor:ktor-client-json-jvm:$ktor_version")
                 implementation("io.ktor:ktor-client-logging-jvm:$ktor_version")
                 implementation("io.ktor:ktor-client-serialization-jvm:$ktor_version")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
                 implementation("androidx.lifecycle:lifecycle-extensions:2.1.0")
                 implementation(kotlin("stdlib"))
@@ -82,7 +79,6 @@ kotlin {
                 implementation("io.ktor:ktor-client-json-native:$ktor_version")
                 implementation("io.ktor:ktor-client-logging-native:$ktor_version")
                 implementation("io.ktor:ktor-client-serialization-native:$ktor_version")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serialization_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.5-native-nt")
             }
         }
