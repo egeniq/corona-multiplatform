@@ -1,5 +1,6 @@
 package com.multiplatform.sample.androidApp
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -49,6 +50,13 @@ class MainActivity : AppCompatActivity() {
         listAdapter = ListAdapter(userCountryMapped)
         binding?.recyclerView?.adapter = listAdapter
 
+        // Test for memory leaks:
+        // 1. Enable "Don't keep activities" in Developer options of you device
+        // 2. Click on progressBar while app is loading multiple times.
+        // 3. CanaryLeak shouldn't complain
+        binding?.progressBar?.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+        }
         viewModel.fetchData()
     }
 

@@ -23,6 +23,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
     implementation( "androidx.activity:activity-ktx:1.1.0")
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.6")
 
 }
 android {
