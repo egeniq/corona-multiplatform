@@ -5,6 +5,7 @@ plugins {
     kotlin("plugin.serialization") version "1.4.10"
     id("com.android.library")
     id("kotlin-android-extensions")
+    id("com.squareup.sqldelight")
 }
 group = "com.multiplatform.sample"
 version = "1.0-SNAPSHOT"
@@ -20,6 +21,13 @@ repositories {
 
 val ktor_version = "1.4.0"
 val coroutines_version = "1.3.7"
+val sql_delight_version = "1.4.3"
+
+sqldelight {
+    database("CoronaDatabase") {
+        packageName = "com.multiplatform.sample"
+    }
+}
 
 kotlin {
 
@@ -41,6 +49,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutines_version")
                 api("dev.icerock.moko:mvvm:0.8.0")
                 implementation(kotlin("stdlib-common"))
+                implementation("com.squareup.sqldelight:runtime:$sql_delight_version")
             }
         }
         val commonTest by getting {
@@ -56,6 +65,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
                 implementation("androidx.lifecycle:lifecycle-extensions:2.1.0")
                 implementation(kotlin("stdlib"))
+                implementation("com.squareup.sqldelight:android-driver:$sql_delight_version")
             }
         }
         val androidTest by getting {
@@ -68,6 +78,7 @@ kotlin {
             dependencies {
                 implementation("io.ktor:ktor-client-ios:$ktor_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.5-native-nt")
+                implementation("com.squareup.sqldelight:native-driver:$sql_delight_version")
             }
         }
         val iosTest by getting

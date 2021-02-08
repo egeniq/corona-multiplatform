@@ -11,6 +11,8 @@ class CoronaRepository {
 
     private val hopkinsAPI = HopkinsAPI(BASE_URL)
 
+//    val database = AppDatabase(databaseDriverFactory.createDriver())
+
     suspend fun getData(): MutableList<CountryRow> {
         val countryRowList = CountryListDataMapper.map(hopkinsAPI.getCountryDaysMap())
         // todo cache
