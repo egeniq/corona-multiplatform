@@ -29,14 +29,14 @@ class ContentViewController: UIViewController {
         // Do any additional setup after loading the view.
         mainViewModel.setup(kermit: kermit)
         
-        mainViewModel.pageResultLD.addObserver { data in
+        mainViewModel.pageResultLD.addObserver { [weak self] data in
             if let data = data {
                 print(data)
                 if let result = data as? Result {
                     result.resolve { (payload: Any?) in
                         if let items = payload as? [CountryRow] {
-                            self.items = items
-                            self.tableView.reloadData()
+                            self?.items = items
+                            self?.tableView.reloadData()
                         }
                     } onError: { (ex: KotlinThrowable) in
                         // handle error
@@ -68,7 +68,7 @@ extension ContentViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell  = tableView.dequeueReusableCell(withIdentifier: "CountryItemCell") as! CountryItemCell
-        cell.setItem(item: items[indexPath.row])
+        cell.configureForCountry(countryRow: items[indexPath.row])
         return cell
     }
 }

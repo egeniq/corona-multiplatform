@@ -18,19 +18,19 @@ class CountryItemCell: UITableViewCell {
     @IBOutlet weak var totalDeathsLabel: UILabel!
     @IBOutlet weak var newDeathsLabel: UILabel!
     
-    func setItem(item: CountryRow) {
-        countryNameLabel.text = item.country
+    func configureForCountry(countryRow: CountryRow) {
+        countryNameLabel.text = countryRow.country
    
-        totalCasesLabel.text =  toK(number: item.totalCases)
+        totalCasesLabel.text =  toK(number: countryRow.totalCases)
         totalCasesLabel.textAlignment = NSTextAlignment.right
      
-        newCasesLabel.text = toK(number: item.newCases)
+        newCasesLabel.text = toK(number: countryRow.newCases)
         newCasesLabel.textAlignment = NSTextAlignment.right
 
-        totalDeathsLabel.text = toK(number: item.totalDeaths)
+        totalDeathsLabel.text = toK(number: countryRow.totalDeaths)
         totalDeathsLabel.textAlignment = NSTextAlignment.right
 
-        newDeathsLabel.text = item.newDeaths?.stringValue
+        newDeathsLabel.text = countryRow.newDeaths?.stringValue
         newDeathsLabel.textAlignment = NSTextAlignment.right
 
     }
