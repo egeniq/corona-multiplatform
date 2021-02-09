@@ -11,33 +11,64 @@ import shared
 
 class ContentViewController: UIViewController {
 
+    @IBOutlet var tableView: UITableView!
+    
     let mainViewModel = MainViewModel()
     let kermit = Kermit(loggerList: [NSLogLogger()], defaultTag: "iOSTag")
 
+    var items: [CountryRow] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.register(UINib(nibName: "CountryItemCell", bundle: nil), forCellReuseIdentifier: "CountryItemCell")
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
         // Do any additional setup after loading the view.
         mainViewModel.setup(kermit: kermit)
-        mainViewModel.pageData.addObserver { data in
+        
+        mainViewModel.pageResultLD.addObserver { [weak self] data in
             if let data = data {
                 print(data)
+                if let result = data as? Result {
+                    result.resolve { (payload: Any?) in
+                        if let items = payload as? [CountryRow] {
+                            self?.items = items
+                            self?.tableView.reloadData()
+                        }
+                    } onError: { (ex: KotlinThrowable) in
+                        // handle error
+                    }
+
+                }
             } else {
-                print("Received nil")
+                
             }
         }
         mainViewModel.fetchData()
     }
 
+}
 
-    /*
-    // MARK: - Navigation
+extension ContentViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
-    */
+    
+}
 
+extension ContentViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell  = tableView.dequeueReusableCell(withIdentifier: "CountryItemCell") as! CountryItemCell
+        cell.configureForCountry(countryRow: items[indexPath.row])
+        return cell
+    }
 }

@@ -47,7 +47,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"
@@ -60,6 +60,17 @@
             android:layout_marginTop="50dp"
             android:background="#aaaaaa"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/recycler_view"
+            app:layout_constraintRight_toRightOf="@id/recycler_view"
+            app:layout_constraintBottom_toBottomOf="@id/recycler_view"
+            app:layout_constraintTop_toTopOf="@id/recycler_view"
+            />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

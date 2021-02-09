@@ -7,14 +7,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.multiplatform.sample.androidApp.R
 import com.multiplatform.sample.androidApp.Utils
-import com.multiplatform.sample.shared.entity.CountryItem
+import com.multiplatform.sample.shared.domain.model.CountryRow
 import com.neovisionaries.i18n.CountryCode
 import java.util.*
 
 class ListAdapter(private val userCountry: String?) :
     RecyclerView.Adapter<ListAdapter.RowViewHolder>() {
 
-    var countryItems: List<CountryItem>? = null
+    var countryItems: List<CountryRow>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -47,7 +47,7 @@ class ListAdapter(private val userCountry: String?) :
         }
 
         fun bind(
-            countryItem: CountryItem,
+            countryItem: CountryRow,
             userCountry: String?
         ) {
 

@@ -19,22 +19,11 @@ repositories {
 }
 
 val ktor_version = "1.3.2"
-val serialization_version = "0.14.0"
 val coroutines_version = "1.3.7"
+val kodein_version = "6.5.3"
 
 kotlin {
 
-//    jvm {
-//        val main by compilations.getting {
-//            kotlinOptions {
-//                // Setup the Kotlin compiler options for the 'main' compilation:
-//                jvmTarget = "1.8"
-//            }
-//
-//            compileKotlinTask // get the Kotlin task 'compileKotlinJvm'
-//            output // get the main compilation output
-//        }
-//    }
     android()
     ios {
         binaries {
@@ -52,11 +41,12 @@ kotlin {
                 implementation("io.ktor:ktor-client-json:$ktor_version")
                 implementation("io.ktor:ktor-client-logging:$ktor_version")
                 implementation("io.ktor:ktor-client-serialization:$ktor_version")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutines_version")
                 api("dev.icerock.moko:mvvm:0.7.1")
                 implementation(kotlin("stdlib-common"))
                 api("co.touchlab:kermit:0.1.7")
+                implementation("org.kodein.di:kodein-di-core:$kodein_version")
+                implementation("org.kodein.di:kodein-di-erased:$kodein_version")
             }
         }
         val commonTest by getting {
@@ -72,7 +62,6 @@ kotlin {
                 implementation("io.ktor:ktor-client-json-jvm:$ktor_version")
                 implementation("io.ktor:ktor-client-logging-jvm:$ktor_version")
                 implementation("io.ktor:ktor-client-serialization-jvm:$ktor_version")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
                 implementation("androidx.lifecycle:lifecycle-extensions:2.1.0")
                 implementation(kotlin("stdlib"))
@@ -90,7 +79,6 @@ kotlin {
                 implementation("io.ktor:ktor-client-json-native:$ktor_version")
                 implementation("io.ktor:ktor-client-logging-native:$ktor_version")
                 implementation("io.ktor:ktor-client-serialization-native:$ktor_version")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serialization_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.5-native-nt")
             }
         }
@@ -113,6 +101,15 @@ android {
     }
     packagingOptions {
         exclude("META-INF/*.kotlin_module")
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
     }
 }
 val packForXcode by tasks.creating(Sync::class) {

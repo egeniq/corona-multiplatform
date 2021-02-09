@@ -39,6 +39,12 @@ object Utils {
         return null
     }
 
+    fun getUserCountryMapped(context: Context): String? {
+        val userCountryISO = getUserCountry(context)
+        val userCountry = getCountryNameByISO(userCountryISO)
+        return mapCountryName(userCountry)
+    }
+
     fun localeToEmoji(locale: Locale): String? {
         val countryCode = locale.country
         val firstLetter = Character.codePointAt(countryCode, 0) - 0x41 + 0x1F1E6
