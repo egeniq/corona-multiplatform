@@ -14,7 +14,6 @@ class ContentViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     
     let mainViewModel = MainViewModel()
-    let kermit = Kermit(loggerList: [NSLogLogger()], defaultTag: "iOSTag")
 
     var items: [CountryRow] = []
     
@@ -27,7 +26,7 @@ class ContentViewController: UIViewController {
         tableView.dataSource = self
         
         // Do any additional setup after loading the view.
-        mainViewModel.setup(kermit: kermit)
+        mainViewModel.setup()
         
         mainViewModel.pageResultLD.addObserver { [weak self] data in
             if let data = data {
