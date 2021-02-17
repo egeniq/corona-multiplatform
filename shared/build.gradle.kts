@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     kotlin("multiplatform")
-    kotlin("plugin.serialization") version "1.3.72"
+    kotlin("plugin.serialization") version "1.4.10"
     id("com.android.library")
     id("kotlin-android-extensions")
 }
@@ -18,9 +18,8 @@ repositories {
     maven ("https://dl.bintray.com/fitpuli/fitpuli.dev")
 }
 
-val ktor_version = "1.3.2"
+val ktor_version = "1.4.0"
 val coroutines_version = "1.3.7"
-val kodein_version = "6.5.3"
 
 kotlin {
 
@@ -29,8 +28,6 @@ kotlin {
         binaries {
             framework {
                 baseName = "shared"
-                export("co.touchlab:kermit:0.1.7")
-                transitiveExport = true
             }
         }
     }
@@ -42,11 +39,8 @@ kotlin {
                 implementation("io.ktor:ktor-client-logging:$ktor_version")
                 implementation("io.ktor:ktor-client-serialization:$ktor_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutines_version")
-                api("dev.icerock.moko:mvvm:0.7.1")
+                api("dev.icerock.moko:mvvm:0.8.0")
                 implementation(kotlin("stdlib-common"))
-                api("co.touchlab:kermit:0.1.7")
-                implementation("org.kodein.di:kodein-di-core:$kodein_version")
-                implementation("org.kodein.di:kodein-di-erased:$kodein_version")
             }
         }
         val commonTest by getting {
@@ -59,9 +53,6 @@ kotlin {
             dependencies {
                 implementation("com.google.android.material:material:1.2.1")
                 implementation("io.ktor:ktor-client-android:$ktor_version")
-                implementation("io.ktor:ktor-client-json-jvm:$ktor_version")
-                implementation("io.ktor:ktor-client-logging-jvm:$ktor_version")
-                implementation("io.ktor:ktor-client-serialization-jvm:$ktor_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
                 implementation("androidx.lifecycle:lifecycle-extensions:2.1.0")
                 implementation(kotlin("stdlib"))
@@ -76,9 +67,6 @@ kotlin {
         val iosMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-ios:$ktor_version")
-                implementation("io.ktor:ktor-client-json-native:$ktor_version")
-                implementation("io.ktor:ktor-client-logging-native:$ktor_version")
-                implementation("io.ktor:ktor-client-serialization-native:$ktor_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.5-native-nt")
             }
         }
