@@ -26,7 +26,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-logging:$ktor_version")
                 implementation("io.ktor:ktor-client-serialization:$ktor_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutines_version")
-                api("dev.icerock.moko:mvvm:0.8.0")
+                api("dev.icerock.moko:mvvm:0.8.1")
                 implementation(kotlin("stdlib-common"))
             }
         }
