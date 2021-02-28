@@ -2,11 +2,11 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     kotlin("multiplatform")
-    kotlin("plugin.serialization") version "1.4.10"
+    kotlin("plugin.serialization") version "1.4.21"
     id("com.android.library")
 }
 
-val ktor_version = "1.4.0"
+val ktor_version = "1.4.3"
 val coroutines_version = "1.3.7"
 
 kotlin {
@@ -54,7 +54,7 @@ kotlin {
         val iosMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-ios:$ktor_version")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.5-native-nt")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.7")
             }
         }
         val iosTest by getting
