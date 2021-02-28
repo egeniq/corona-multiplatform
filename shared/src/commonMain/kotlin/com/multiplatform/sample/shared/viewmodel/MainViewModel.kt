@@ -1,6 +1,6 @@
 package com.multiplatform.sample.shared.viewmodel
 
-import com.multiplatform.sample.shared.domain.model.CountryData
+import com.multiplatform.sample.shared.datasource.db.CountryRow
 import com.multiplatform.sample.shared.repo.CoronaRepository
 import com.multiplatform.sample.shared.domain.sorting.TotalDeathsComparator
 import dev.icerock.moko.mvvm.livedata.LiveData
@@ -16,8 +16,8 @@ class MainViewModel : ViewModel() {
 
     val repository = CoronaRepository()
 
-    private val _pageResultLD = MutableLiveData<Result<List<CountryData>>>(Result.inProgress())
-    val pageResultLD: LiveData<Result<List<CountryData>>>
+    private val _pageResultLD = MutableLiveData<Result<List<CountryRow>>>(Result.inProgress())
+    val pageResultLD: LiveData<Result<List<CountryRow>>>
         get() = _pageResultLD
 
     fun fetchData() {

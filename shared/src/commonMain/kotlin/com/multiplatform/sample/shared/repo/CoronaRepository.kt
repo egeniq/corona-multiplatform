@@ -2,8 +2,8 @@ package com.multiplatform.sample.shared.repo
 
 import com.multiplatform.sample.shared.CoronaDatabase
 import com.multiplatform.sample.shared.datasource.HopkinsAPI
+import com.multiplatform.sample.shared.datasource.db.CountryRow
 import com.multiplatform.sample.shared.domain.CountryListDataMapper
-import com.multiplatform.sample.shared.domain.model.CountryData
 import com.squareup.sqldelight.db.SqlDriver
 
 /**
@@ -19,13 +19,11 @@ class CoronaRepository {
         database = CoronaDatabase(sqlDriver)
     }
 
-    suspend fun getData(): List<CountryData> {
+    suspend fun getData(): List<CountryRow> {
 
-        val dataFromDb: List<CountryData>? = database?.countryRowQueries?.selectAll()?.executeAsList()?.map {
-            CountryData(it.country, it.totalCases, it.totalDeaths, it.newCases, it.newDeaths)
-        }
+        val dataFromDb: List<CountryRow>? = database?.countryRowQueries?.selectAll()?.executeAsList()
 
-        if (dataFromDb?.isNotEmpty() == true) {
+        if (dataFromDb?.isNotEmpty() == true) {  // TODO add cache lifetime
             return dataFromDb
         } else {
             val countryRowList = CountryListDataMapper.map(hopkinsAPI.getCountryDaysMap())

@@ -1,6 +1,6 @@
 package com.multiplatform.sample.shared.domain
 
-import com.multiplatform.sample.shared.domain.model.CountryData
+import com.multiplatform.sample.shared.datasource.db.CountryRow
 import com.multiplatform.sample.shared.domain.model.Day
 
 /**
@@ -8,8 +8,8 @@ import com.multiplatform.sample.shared.domain.model.Day
  */
 object CountryListDataMapper {
 
-    fun map(entries: Map<String, List<Day>>?): MutableList<CountryData> {
-        val rows = mutableListOf<CountryData>()
+    fun map(entries: Map<String, List<Day>>?): MutableList<CountryRow> {
+        val rows = mutableListOf<CountryRow>()
         entries?.keys?.forEach { country ->
             val days = entries[country]
             days?.let {
@@ -25,7 +25,8 @@ object CountryListDataMapper {
 
                     if (newCases > 0) {
                         rows.add(
-                            CountryData(
+                            CountryRow(
+                                0,
                                 country,
                                 yesterday.confirmed?.toLong(),
                                 yesterday.deaths?.toLong(),

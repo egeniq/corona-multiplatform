@@ -7,9 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.multiplatform.sample.androidApp.databinding.ActivityMainBinding
 import com.multiplatform.sample.androidApp.ui.ListAdapter
+import com.multiplatform.sample.shared.datasource.db.CountryRow
 import com.multiplatform.sample.shared.datasource.db.DatabaseDriverFactory
 import com.multiplatform.sample.shared.viewmodel.MainViewModel
-import com.multiplatform.sample.shared.domain.model.CountryData
 import com.multiplatform.sample.shared.utils.Result
 import com.multiplatform.sample.shared.utils.resolve
 
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     private var listAdapter: ListAdapter? = null
     private var binding: ActivityMainBinding? = null
 
-    private val pageObserver: (Result<List<CountryData>>) -> Unit = { result ->
+    private val pageObserver: (Result<List<CountryRow>>) -> Unit = { result ->
         result.resolve ({
             listAdapter?.countryItems = it
             listAdapter?.notifyDataSetChanged()
