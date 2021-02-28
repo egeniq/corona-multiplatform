@@ -1,0 +1,15 @@
+CREATE TABLE CountryRow (
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+country TEXT UNIQUE,
+totalCases INTEGER DEFAULT 0,
+totalDeaths INTEGER DEFAULT 0,
+newCases INTEGER DEFAULT 0,
+newDeaths INTEGER DEFAULT 0
+);
+
+selectAll:
+SELECT * FROM CountryRow;
+
+insertCountryRow:
+INSERT OR REPLACE INTO CountryRow(id, country, totalCases, totalDeaths, newCases, newDeaths)
+VALUES (?,?,?,?,?,?);
