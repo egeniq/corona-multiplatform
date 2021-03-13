@@ -7,10 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.multiplatform.sample.androidApp.databinding.ActivityMainBinding
 import com.multiplatform.sample.androidApp.ui.ListAdapter
-import com.multiplatform.sample.shared.datasource.db.CountryRow
 import com.multiplatform.sample.shared.datasource.db.DatabaseDriverFactory
 import com.multiplatform.sample.shared.viewmodel.MainViewModel
-import com.multiplatform.sample.shared.utils.Result
 import com.multiplatform.sample.shared.utils.resolve
 
 class MainActivity : AppCompatActivity() {
@@ -19,16 +17,6 @@ class MainActivity : AppCompatActivity() {
 
     private var listAdapter: ListAdapter? = null
     private var binding: ActivityMainBinding? = null
-
-    private val pageObserver: (Result<List<CountryRow>>) -> Unit = { result ->
-        result.resolve ({
-            listAdapter?.countryItems = it
-            listAdapter?.notifyDataSetChanged()
-        }, {
-            // handle error
-        })
-        binding?.progressBar?.visibility = if (result.inProgress()) View.VISIBLE else View.GONE
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,17 +39,17 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this ).get(MainViewModel::class.java)
         viewModel.repository.setup(DatabaseDriverFactory(applicationContext).createDriver())
+        viewModel.pageResultLD.ld().observe(this, { result ->
+            result.resolve ({
+                listAdapter?.countryItems = it
+                listAdapter?.notifyDataSetChanged()
+            }, {
+                // handle error
+            })
+            binding?.progressBar?.visibility = if (result.inProgress()) View.VISIBLE else View.GONE
+        })
+
         viewModel.fetchData()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.pageResultLD.addObserver(pageObserver)
-    }
-
-    override fun onPause() {
-        viewModel.pageResultLD.removeObserver(pageObserver)
-        super.onPause()
     }
 
 }
