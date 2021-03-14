@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel = ViewModelProvider(this ).get(MainViewModel::class.java)
-        viewModel.repository.setup(DatabaseDriverFactory(applicationContext).createDriver())
+        viewModel.repository.setup(DatabaseDriverFactory(applicationContext).createDriver()) // TODO should be done via DI
         viewModel.pageResultLD.ld().observe(this, { result ->
             result.resolve ({
                 listAdapter?.countryItems = it

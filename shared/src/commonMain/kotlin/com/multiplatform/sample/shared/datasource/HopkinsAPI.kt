@@ -1,5 +1,6 @@
 package com.multiplatform.sample.shared.datasource
 
+import co.touchlab.kermit.Kermit
 import com.multiplatform.sample.shared.domain.model.Day
 import io.ktor.client.*
 import io.ktor.client.features.json.*
@@ -11,17 +12,27 @@ import io.ktor.client.request.*
  */
 class HopkinsAPI {
 
-    private val client = HttpClient {
-        install(JsonFeature) {
-        }
-        install(Logging) {
-            logger = Logger.DEFAULT
-            level = LogLevel.BODY
+    private val kermit = Kermit()
+
+    private val client by lazy {
+        kermit.d { "init ktor HttpClient" }
+        try {
+            HttpClient {
+                install(JsonFeature) {
+                }
+                install(Logging) {
+                    logger = Logger.DEFAULT
+                    level = LogLevel.BODY
+                }
+            }
+        } catch (e: Exception) {
+            kermit.e(throwable = e) { "Error while init ktor HttpClient" }
+            null
         }
     }
 
-    suspend fun getCountryDaysMap(): Map<String, List<Day>> {
-        return client.get(BASE_URL + "timeseries.json")
+    suspend fun getCountryDaysMap(): Map<String, List<Day>>? {
+        return client?.get(BASE_URL + "timeseries.json")
     }
 
     companion object {

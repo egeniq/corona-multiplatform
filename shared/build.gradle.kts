@@ -31,6 +31,7 @@ kotlin {
                 api("dev.icerock.moko:mvvm:0.8.1")
                 implementation(kotlin("stdlib-common"))
                 implementation("com.squareup.sqldelight:runtime:$sql_delight_version")
+                api("co.touchlab:kermit:0.1.8")
             }
         }
         val commonTest by getting {
