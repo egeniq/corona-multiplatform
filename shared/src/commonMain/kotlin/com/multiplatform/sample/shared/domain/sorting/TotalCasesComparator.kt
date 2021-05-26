@@ -1,6 +1,6 @@
 package com.multiplatform.sample.shared.domain.sorting
 
-import com.multiplatform.sample.shared.domain.model.CountryRow
+import com.multiplatform.sample.shared.datasource.db.CountryRow
 
 
 /**
