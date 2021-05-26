@@ -4,6 +4,7 @@ import com.multiplatform.sample.shared.CoronaDatabase
 import com.multiplatform.sample.shared.datasource.HopkinsAPI
 import com.multiplatform.sample.shared.datasource.db.CountryRow
 import com.multiplatform.sample.shared.domain.CountryListDataMapper
+import com.multiplatform.sample.shared.getKermit
 import com.squareup.sqldelight.db.SqlDriver
 
 /**
@@ -12,8 +13,13 @@ import com.squareup.sqldelight.db.SqlDriver
 class CoronaRepository {
 
     private val hopkinsAPI  = HopkinsAPI()
+    private val kermit = getKermit()
 
     var database: CoronaDatabase? = null
+
+    init {
+        kermit.d { "init CoronaRepository" }
+    }
 
     fun setup(sqlDriver: SqlDriver) {               // TODO: this should be done via DI
         database = CoronaDatabase(sqlDriver)
@@ -23,9 +29,9 @@ class CoronaRepository {
 
         val dataFromDb: List<CountryRow>? = database?.countryRowQueries?.selectAll()?.executeAsList()
 
-        if (dataFromDb?.isNotEmpty() == true) {  // TODO add cache lifetime
-            return dataFromDb
-        } else {
+//        if (dataFromDb?.isNotEmpty() == true) {  // TODO add cache lifetime
+//            return dataFromDb
+//        } else {
             val countryRowList = CountryListDataMapper.map(hopkinsAPI.getCountryDaysMap())
             countryRowList.forEach {
                 database?.countryRowQueries?.insertCountryRow(
@@ -38,6 +44,6 @@ class CoronaRepository {
                 )
             }
             return countryRowList
-        }
+//        }
     }
 }

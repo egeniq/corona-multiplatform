@@ -2,6 +2,7 @@ package com.multiplatform.sample.shared.datasource
 
 import co.touchlab.kermit.Kermit
 import com.multiplatform.sample.shared.domain.model.Day
+import com.multiplatform.sample.shared.getKermit
 import io.ktor.client.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.logging.*
@@ -12,7 +13,7 @@ import io.ktor.client.request.*
  */
 class HopkinsAPI {
 
-    private val kermit = Kermit()
+    private val kermit = getKermit()
 
     private val client by lazy {
         kermit.d { "init ktor HttpClient" }

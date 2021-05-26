@@ -26,8 +26,7 @@ class ContentViewController: UIViewController {
         tableView.dataSource = self
         
         // Do any additional setup after loading the view.
-        mainViewModel.setup()
-        
+        NSLog("init ContentViewController")
         mainViewModel.pageResultLD.addObserver { [weak self] data in
             if let data = data {
                 print(data)

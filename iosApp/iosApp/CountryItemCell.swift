@@ -35,7 +35,7 @@ class CountryItemCell: UITableViewCell {
 
     }
     
-    func toK(number: KotlinInt?) -> String {
+    func toK(number: KotlinLong?) -> String {
         if let numberInt = number?.intValue, numberInt > 1000 {
             return "\(numberInt/1000)k"
         } else {

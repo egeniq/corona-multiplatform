@@ -3,6 +3,7 @@ package com.multiplatform.sample.shared.viewmodel
 import com.multiplatform.sample.shared.datasource.db.CountryRow
 import com.multiplatform.sample.shared.repo.CoronaRepository
 import com.multiplatform.sample.shared.domain.sorting.TotalDeathsComparator
+import com.multiplatform.sample.shared.getKermit
 import dev.icerock.moko.mvvm.livedata.LiveData
 import dev.icerock.moko.mvvm.livedata.MutableLiveData
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
@@ -15,10 +16,15 @@ import com.multiplatform.sample.shared.utils.Result
 class MainViewModel : ViewModel() {
 
     val repository = CoronaRepository()
+    private val kermit = getKermit()
 
     private val _pageResultLD = MutableLiveData<Result<List<CountryRow>>>(Result.inProgress())
     val pageResultLD: LiveData<Result<List<CountryRow>>>
         get() = _pageResultLD
+
+    init {
+        kermit.d { "init MainViewModel" }
+    }
 
     fun fetchData() {
         viewModelScope.launch {

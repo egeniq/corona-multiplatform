@@ -9,7 +9,7 @@ plugins {
 
 val ktor_version = "1.4.3"
 val coroutines_version = "1.3.7"
-val sql_delight_version = "1.4.3"
+val sql_delight_version = "1.4.4"
 
 kotlin {
     android()
