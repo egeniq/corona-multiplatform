@@ -1,6 +1,6 @@
 package com.multiplatform.sample.shared.domain
 
-import com.multiplatform.sample.shared.domain.model.CountryRow
+import com.multiplatform.sample.shared.datasource.db.CountryRow
 import com.multiplatform.sample.shared.domain.model.Day
 
 /**
@@ -26,11 +26,12 @@ object CountryListDataMapper {
                     if (newCases > 0) {
                         rows.add(
                             CountryRow(
+                                0,
                                 country,
-                                yesterday.confirmed,
-                                yesterday.deaths,
-                                newCases,
-                                newDeaths
+                                yesterday.confirmed?.toLong(),
+                                yesterday.deaths?.toLong(),
+                                newCases.toLong(),
+                                newDeaths.toLong()
                             )
                         )
                     }

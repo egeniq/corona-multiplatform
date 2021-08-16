@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.multiplatform.sample.androidApp.R
 import com.multiplatform.sample.androidApp.Utils
-import com.multiplatform.sample.shared.domain.model.CountryRow
+import com.multiplatform.sample.shared.datasource.db.CountryRow
 import com.neovisionaries.i18n.CountryCode
 import java.util.*
 
@@ -86,10 +86,10 @@ class ListAdapter(private val userCountry: String?) :
     }
 }
 
-fun Int?.toKs(): String {
+fun Long?.toKs(): String {
     return when (this) {
         null -> "no data"
-        in 10000..Int.MAX_VALUE -> "${this / 1000}k"
+        in 10000..Long.MAX_VALUE -> "${this / 1000}k"
         else -> this.toString()
     }
 }
